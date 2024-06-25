@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Chat Room</title>
+    <script>
+        function generateUUID() { // UUID v4 generator
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
+        window.onload = function() {
+            const form = document.getElementById('createRoomForm');
+            form.onsubmit = async (e) => {
+                e.preventDefault();
+
+                const roomName = document.getElementById('roomName').value;
+                const roomId = generateUUID();
+
+                const response = await fetch('/api/chatroom', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ roomName, roomId })
+                });
+
+                const result = await response.json();
+                console.log(result);
+            };
+        };
+    </script>
+</head>
+<body>
+<form id="createRoomForm">
+    <label for="roomName">Room Name:</label><br>
+    <input type="text" id="roomName" name="roomName"><br>
+    <input type="submit" value="Create Room">
+</form>
+</body>
+</html>
