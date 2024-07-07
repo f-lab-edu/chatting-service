@@ -6,13 +6,19 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @Setter
-public class ChatRoomDto {
+public class ChatMessageDto {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String Id;
-    private String roomName;
-
+    private Long Id;
+    private String messageId;
+    private String roomId;
+    private String sender;
+    private String message;
+    private LocalDateTime timestamp;
 }
